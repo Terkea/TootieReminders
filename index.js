@@ -32,7 +32,7 @@ for (let reminder of reminders) {
     schedule.scheduleJob(reminder.cron, async function() {
         let customizedPrompt = "This is for my girlfriend, it should be cheeky and lovely. " + reminder.prompt;
         let response = await openai.Completion.create({
-            engine: "text-davinci-002",
+            engine: "text-davinci-003",
             prompt: customizedPrompt,
             max_tokens: 500
         });
