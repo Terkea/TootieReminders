@@ -2,9 +2,8 @@ require('dotenv').config();
 const qrcode = require('qrcode-terminal');
 const { Client } = require('whatsapp-web.js');
 const schedule = require('node-schedule');
-const openai = require('openai');
+const axios = require('axios');
 
-openai.apiKey = process.env.OPENAI_KEY;
 
 const client = new Client();
 
@@ -28,21 +27,26 @@ const reminders = [
     { cron: '0 19 * * *', prompt: "Generate a message to encourage self-care activities." },
     { cron: '0 22 * * *', prompt: "Generate a goodnight message with a word of praise." },
 ];
+
 for (let reminder of reminders) {
     schedule.scheduleJob(reminder.cron, async function() {
         let customizedPrompt = "This is for my girlfriend, it should be cheeky and lovely. " + reminder.prompt;
-        let response = await openai.Completion.create({
-            engine: "text-davinci-003",
-            prompt: customizedPrompt,
-            max_tokens: 500
-        });
 
-        let messageText = response.choices[0].text.trim();
+        let response = await axios.post(
+            'https://api.openai.com/v1/chat/completions',
+            { 
+                model: 'gpt-3.5-turbo',
+                messages: [{ role: 'user', content: customizedPrompt }],
+                temperature: 0.5
+            },
+            { headers: { 'Authorization': `Bearer ${process.env.OPENAI_KEY}`, 'Content-Type': 'application/json' }}
+        );
+
+        let messageText = response.data.choices[0].message.content.trim();
         client.sendMessage(number, messageText);
 
         // Log the time and the message that was sent
         let currentTime = new Date();
-        console.log(`[${currentTime.toLocaleString()}] Message sent: "${messageText}"`);
+        console.log(`[${currentTime.toLocaleString()}] Message sent: ${messageText}`);
     });
 }
-
