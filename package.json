@@ -1,0 +1,19 @@
+{
+  "name": "TootieReminders",
+  "version": "1.0.0",
+  "description": "Stay connected with your special someone in a fun and endearing way with Tootie Reminders! Powered by OpenAI's GPT-3, this bot serves as your personal cupid, sending personalized, cheeky reminders to your loved one through WhatsApp.",
+  "author": "Marian Terchila",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "node-schedule": "^2.1.1",
+    "openai": "^3.2.1",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.21.0"
+  }
+}
