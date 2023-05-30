@@ -20,9 +20,20 @@ This guide will help you set up and use Tootie Reminders, the cheeky WhatsApp bo
 ## Setup
 ### Install Dependencies
 ```
-cd tootie-reminders
 npm install
 ```
+
+## Setup Environment Variables:
+We use environment variables to securely store sensitive information. You'll find a file in the root directory named `.env_template`. Make a copy of this file and name it `.env`.
+```
+cp .env_template .env
+```
+Open up the newly created `.env` file and you'll see something like this:
+```
+OPENAI_KEY=
+PHONE_NUMBER=
+```
+Fill in the `OPENAI_KEY` with your OpenAI key and `PHONE_NUMBER` with the recipient's phone number. Make sure to keep this file safe and do not commit it or share it.
 
 ### Set Up Your OpenAI API Key
 In order to generate personalized messages, you need to use OpenAI's GPT-3. For this, you will need an API key from OpenAI. Visit their website to sign up and get your key.
