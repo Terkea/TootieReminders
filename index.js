@@ -34,7 +34,7 @@ for (let reminder of reminders) {
         let response = await openai.Completion.create({
             engine: "text-davinci-002",
             prompt: customizedPrompt,
-            max_tokens: 60
+            max_tokens: 500
         });
 
         let messageText = response.choices[0].text.trim();
